@@ -1,9 +1,11 @@
 #Name:- Karthik D
 from tkinter import*
+from gtts import gTTS
 import wikipedia
 import sys
-import requests
-import datetime
+import os
+
+
 ###################
 
 
@@ -27,15 +29,22 @@ def ex():
 def check():
     global l11, st,tet,link
     try:
+
         st = wikipedia.summary(tet.get().strip()).split('.')
         sm = ''
         for i in st:
             sm += i.strip() + '.\n'
+        obj = gTTS(text=sm, lang='en', slow=False)
+        obj.save('out.mp3')
+        os.system("start=out.mp3")
         l11.delete('1.0', END)
         l11.insert(END, sm)
 
     except:
         l11.delete('1.0', END)
+        obj = gTTS(text='Error in Name', lang='en', slow=False)
+        obj.save('out.mp3')
+        os.system("start=out.mp3")
         l11.insert(END,'Error in Name')
 
 
